@@ -1,0 +1,15 @@
+-- CreateTable
+CREATE TABLE `TB_API_KEY` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `service` VARCHAR(255) NOT NULL,
+    `key` VARCHAR(255) NOT NULL,
+    `createdBy` INTEGER NOT NULL,
+    `expiresAt` DATETIME(3) NOT NULL,
+    `isIndefinite` BOOLEAN NOT NULL DEFAULT false,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `deletedAt` DATETIME(3) NULL,
+
+    UNIQUE INDEX `TB_API_KEY_key_key`(`key`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
