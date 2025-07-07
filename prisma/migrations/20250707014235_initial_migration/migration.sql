@@ -6,7 +6,7 @@ CREATE TABLE `TB_USER` (
     `password` VARCHAR(255) NOT NULL,
     `email` VARCHAR(100) NOT NULL,
     `sessionToken` VARCHAR(255) NULL,
-    `role` ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
+    `role` ENUM('USER', 'ADMIN', 'MANAGER') NOT NULL DEFAULT 'USER',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
     `deletedAt` DATETIME(3) NULL,
@@ -24,6 +24,7 @@ CREATE TABLE `TB_MUSCLE_GROUP` (
     `updatedAt` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
     `deletedAt` DATETIME(3) NULL,
 
+    UNIQUE INDEX `TB_MUSCLE_GROUP_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -61,6 +62,22 @@ CREATE TABLE `TB_WORKOUT_EXERCISE` (
     `workoutId` INTEGER NOT NULL,
     `exerciseId` INTEGER NOT NULL,
 
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `TB_API_KEY` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `service` VARCHAR(255) NOT NULL,
+    `key` VARCHAR(255) NOT NULL,
+    `createdBy` INTEGER NOT NULL,
+    `expiresAt` DATETIME(3) NOT NULL,
+    `isIndefinite` BOOLEAN NOT NULL DEFAULT false,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `deletedAt` DATETIME(3) NULL,
+
+    UNIQUE INDEX `TB_API_KEY_key_key`(`key`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
