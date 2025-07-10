@@ -25,4 +25,6 @@ export class DefaultFilter {
   @IsOptional()
   @ApiPropertyOptional()
   orderByDirection?: 'asc' | 'desc' = 'desc';
+
+  select?: Record<string, any> = {};
 }

@@ -71,7 +71,7 @@ export class UserRepository {
       });
     }
 
-    return await Paginator.applyPagination(this.prisma.user, {
+    const paginatedResult = await Paginator.applyPagination(this.prisma.user, {
       ...filter,
       where: {
         deletedAt: null,
@@ -80,5 +80,19 @@ export class UserRepository {
         }
       }
     });
+
+    this.filterPaginationFields(paginatedResult);
+
+    return paginatedResult;
+  }
+
+  private filterPaginationFields(paginatedResult: any) {
+    paginatedResult.data = paginatedResult.data.map((user) => ({
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role
+    }));
   }
 }
