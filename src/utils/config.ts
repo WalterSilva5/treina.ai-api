@@ -1,4 +1,4 @@
-import { TemplateConfigType } from 'src/types/template-config.type';
+import { TemplateConfigType } from 'src/types/config.type';
 
 export const config: TemplateConfigType = {
   google: {

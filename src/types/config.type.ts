@@ -1,4 +1,4 @@
-export type TemplateConfigType = {
+export type ConfigType = {
   google: {
     clientID: string;
     clientSecret: string;
