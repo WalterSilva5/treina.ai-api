@@ -11,22 +11,22 @@ export abstract class BaseService<Dto = any, Entity = any>
 {
   constructor(protected repository: IBaseRepository) {}
 
-  async createAsync(dto: Dto, user: UserDto): Promise<Entity> {
-    return await this.repository.createAsync(dto, user);
+  async createAsync(dto: Dto): Promise<Entity> {
+    return await this.repository.createAsync(dto);
   }
 
-  async updateAsync(id: number, dto: Dto, user?: UserDto): Promise<Entity> {
-    await this.findByIdAsync(id, user);
-    return await this.repository.updateAsync(id, dto, user);
+  async updateAsync(id: number, dto: Dto): Promise<Entity> {
+    await this.findByIdAsync(id);
+    return await this.repository.updateAsync(id, dto);
   }
 
-  async deleteAsync(id: number, user?: UserDto): Promise<void> {
-    await this.findByIdAsync(id, user);
-    await this.repository.deleteAsync(id, user);
+  async deleteAsync(id: number): Promise<void> {
+    await this.findByIdAsync(id);
+    await this.repository.deleteAsync(id);
   }
 
-  async findByIdAsync(id: number, user?: UserDto): Promise<Entity> {
-    const item = await this.repository.findByIdAsync(id, user);
+  async findByIdAsync(id: number): Promise<Entity> {
+    const item = await this.repository.findByIdAsync(id);
     if (!item) throw new NotFoundException('Objeto não encontrado');
     return item;
   }
@@ -35,6 +35,6 @@ export abstract class BaseService<Dto = any, Entity = any>
     filter: DefaultFilter,
     user?: UserDto
   ): Promise<Paginated<Entity>> {
-    return await this.repository.findFilteredAsync(filter, user);
+    return await this.repository.findFilteredAsync(filter);
   }
 }

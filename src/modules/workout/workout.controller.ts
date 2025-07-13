@@ -36,49 +36,39 @@ export class WorkoutController extends BaseController<WorkoutDto> {
 
   @Get()
   @ApiOkResponsePaginated(WorkoutDto)
-  protected async getFilteredAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Query() filter: DefaultFilter
-  ): Promise<any> {
-    return this.service.findFilteredAsync(filter, user);
+  protected async getFilteredAsync(@Query() filter: DefaultFilter): Promise<any> {
+    return this.service.findFilteredAsync(filter);
   }
 
   @Get('/:id')
   @ApiOkResponse({ type: WorkoutDto })
-  protected async findByIdAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Param('id', ParseIntPipe) id: number
-  ): Promise<any> {
-    return this.service.findByIdAsync(id, user);
+  protected async findByIdAsync(@Param('id', ParseIntPipe) id: number): Promise<any> {
+    return this.service.findByIdAsync(id);
   }
 
   @Post()
   @ApiCreatedResponse({ type: WorkoutDto })
-  protected async createAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Body() dto: WorkoutDto
-  ): Promise<any> {
-    return this.service.createAsync(dto, user);
+  protected async createAsync(@Body() dto: WorkoutDto): Promise<any> {
+    return this.service.createAsync(dto);
   }
 
   @Put('/:id')
   @ApiOkResponse({ type: WorkoutDto })
   protected async updateAsync(
-    @AuthenticatedUser() user: UserDto,
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: WorkoutDto
   ): Promise<any> {
-    return this.service.updateAsync(id, dto, user);
+    return this.service.updateAsync(id, dto);
   }
 
   @Delete('/:id')
   @ApiNoContentResponse({ type: undefined })
   protected async deleteAsync(
     @Res({ passthrough: true }) response: Response,
-    @AuthenticatedUser() user: UserDto,
+
     @Param('id', ParseIntPipe) id: number
   ): Promise<void> {
     response.status(204);
-    return this.service.deleteAsync(id, user);
+    return this.service.deleteAsync(id);
   }
 }

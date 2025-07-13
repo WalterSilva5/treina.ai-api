@@ -18,7 +18,6 @@ import {
   Query,
   Res
 } from '@nestjs/common';
-import { AuthenticatedUser } from 'src/decorators/authenticated-user.decorator';
 import { DefaultFilter } from 'src/filters/DefaultFilter';
 import { ExerciseService } from './exercise.service';
 import { ExerciseDto } from './dto/exercise.dto';
@@ -36,49 +35,39 @@ export class ExerciseController extends BaseController<ExerciseDto> {
 
   @Get()
   @ApiOkResponsePaginated(ExerciseDto)
-  protected async getFilteredAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Query() filter: DefaultFilter
-  ): Promise<any> {
-    return this.service.findFilteredAsync(filter, user);
+  protected async getFilteredAsync(@Query() filter: DefaultFilter): Promise<any> {
+    return this.service.findFilteredAsync(filter);
   }
 
   @Get('/:id')
   @ApiOkResponse({ type: ExerciseDto })
-  protected async findByIdAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Param('id', ParseIntPipe) id: number
-  ): Promise<any> {
-    return this.service.findByIdAsync(id, user);
+  protected async findByIdAsync(@Param('id', ParseIntPipe) id: number): Promise<any> {
+    return this.service.findByIdAsync(id);
   }
 
   @Post()
   @ApiCreatedResponse({ type: ExerciseDto })
-  protected async createAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Body() dto: ExerciseDto
-  ): Promise<any> {
-    return this.service.createAsync(dto, user);
+  protected async createAsync(@Body() dto: ExerciseDto): Promise<any> {
+    return this.service.createAsync(dto);
   }
 
   @Put('/:id')
   @ApiOkResponse({ type: ExerciseDto })
   protected async updateAsync(
-    @AuthenticatedUser() user: UserDto,
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: ExerciseDto
   ): Promise<any> {
-    return this.service.updateAsync(id, dto, user);
+    return this.service.updateAsync(id, dto);
   }
 
   @Delete('/:id')
   @ApiNoContentResponse({ type: undefined })
   protected async deleteAsync(
     @Res({ passthrough: true }) response: Response,
-    @AuthenticatedUser() user: UserDto,
+
     @Param('id', ParseIntPipe) id: number
   ): Promise<void> {
     response.status(204);
-    return this.service.deleteAsync(id, user);
+    return this.service.deleteAsync(id);
   }
 }

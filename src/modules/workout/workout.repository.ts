@@ -14,7 +14,7 @@ export class WorkoutRepository extends BaseRepository<WorkoutDto, Workout> {
     super();
   }
 
-  async createAsync(dto: WorkoutDto, _user?: UserDto): Promise<Workout> {
+  async createAsync(dto: WorkoutDto): Promise<Workout> {
     return await this.prisma.workout.create({
       data: {
         name: dto.name,
@@ -28,20 +28,20 @@ export class WorkoutRepository extends BaseRepository<WorkoutDto, Workout> {
     });
   }
 
-  async updateAsync(id: number, dto: WorkoutDto, _user?: UserDto): Promise<Workout> {
+  async updateAsync(id: number, dto: WorkoutDto): Promise<Workout> {
     return await this.prisma.workout.update({
       where: { id },
       data: { ...dto }
     });
   }
 
-  async deleteAsync(id: number, _user?: UserDto): Promise<void> {
+  async deleteAsync(id: number): Promise<void> {
     await this.prisma.workout.delete({
       where: { id: id }
     });
   }
 
-  async findByIdAsync(id: number, _user?: UserDto): Promise<Workout> {
+  async findByIdAsync(id: number): Promise<Workout> {
     return await this.prisma.workout.findFirst({
       where: { id }
     });

@@ -14,8 +14,8 @@ export abstract class BaseRepository<Dto = any, Entity = any>
   ): Promise<Paginated<Entity>> {
     throw new NotImplementedException();
   }
-  abstract updateAsync(id: number, dto: Dto, user?: UserDto): Promise<Entity>;
-  abstract findByIdAsync(id: number, user?: UserDto): Promise<Entity>;
-  abstract deleteAsync(id: number, user?: UserDto): Promise<void>;
-  abstract createAsync(dto: any, user?: UserDto): Promise<Entity>;
+  abstract updateAsync(id: number, dto: Dto): Promise<Entity>;
+  abstract findByIdAsync(id: number): Promise<Entity>;
+  abstract deleteAsync(id: number): Promise<void>;
+  abstract createAsync(dto: any): Promise<Entity>;
 }

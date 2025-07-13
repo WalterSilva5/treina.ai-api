@@ -23,44 +23,36 @@ export class BaseController<Dto = any> {
 
   @Get()
   protected async getFilteredAsync(
-    @AuthenticatedUser() user: UserDto,
     @Query() filter: DefaultFilter
   ): Promise<Paginated<Dto>> {
-    return this.service.findFilteredAsync(filter, user);
+    return this.service.findFilteredAsync(filter);
   }
 
   @Get('/:id')
-  protected async findByIdAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Param('id', ParseIntPipe) id: number
-  ): Promise<any> {
-    return this.service.findByIdAsync(id, user);
+  protected async findByIdAsync(@Param('id', ParseIntPipe) id: number): Promise<any> {
+    return this.service.findByIdAsync(id);
   }
 
   @Post()
-  protected async createAsync(
-    @AuthenticatedUser() user: UserDto,
-    @Body() dto: Dto
-  ): Promise<any> {
-    return this.service.createAsync(dto, user);
+  protected async createAsync(@Body() dto: Dto): Promise<any> {
+    return this.service.createAsync(dto);
   }
 
   @Put('/:id')
   protected async updateAsync(
-    @AuthenticatedUser() user: UserDto,
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: Dto
   ): Promise<any> {
-    return this.service.updateAsync(id, dto, user);
+    return this.service.updateAsync(id, dto);
   }
 
   @Delete('/:id')
   protected async deleteAsync(
     @Res({ passthrough: true }) response: Response,
-    @AuthenticatedUser() user: UserDto,
+
     @Param('id', ParseIntPipe) id: number
   ): Promise<void> {
     response.status(204);
-    return this.service.deleteAsync(id, user);
+    return this.service.deleteAsync(id);
   }
 }
